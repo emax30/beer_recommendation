@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        body {
+            width: 100%; 
+            margin: 0;   
+            padding: 0; 
+            background-image: url('static/sal-gh_beers.jpg');
+            background-size: cover; 
+        }
+        .container {
+            background-color: rgba(231, 222, 222, 0.5);
+            display: inline-block;
+            margin: auto; 
+            padding: 5px;
+        }
+
+        ul {
+            display: inline-block;
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+        ul li {
+            text-align: justify;
+            font-size: 22px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Here are my beer recommendations:</h1>
+        {% if result %}
+            <ul>
+                {% for beer, info, brewery, address in result %}
+                <li>
+                    <b><a href="https://www.untappd.com/search?q={{ beer }}" target="_blank">{{ beer }}</a></b>
+                    {{ info }}<br>
+                    {{ brewery }}
+                    {% if address %}
+                        <a href="https://www.google.com/maps/search/?api=1&query={{ address }}" target="_blank">{{ address }}</a>
+                    {% else %}
+                        I'm not sure you will be able to visit them.
+                    {% endif %}
+                </li>
+                <br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            Unfortunately I cannot recommend any beers based on your answer. Maybe try again with some other beers that you like?
+        {% endif %}
+    </div>  
+</body>
+</html>

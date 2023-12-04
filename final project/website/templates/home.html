@@ -1,0 +1,112 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% block content%}
+<style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      background-image: url('static/jon-parry_beers.jpg');
+      background-size: cover;
+      font-family: 'Georgia', sans-serif;
+      font-size: 20px;
+    }
+
+    .centered-text {
+      text-align: center;
+    }
+
+    .form-container {
+      text-align: center;
+      max-width: 800px;
+      background-color: rgba(231, 222, 222, 0.3);
+      margin: 0 auto;
+      padding: 20px; 
+    }
+
+    .form-title {
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+  
+    .form-floating {
+      width: 500px; 
+      margin: auto; 
+      margin-bottom: 20px;
+    }
+  
+    .form-control {
+      width: 100%;
+      max-width: 100%; 
+    }
+
+    .form-description {
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .form-select {
+      margin-bottom: 20px;
+    }
+</style>
+<body>
+
+  <div class="form-container">
+    <form action="{{ url_for('process_beers') }}" method="post" onsubmit="return validateForm()">
+      <div class="form-title">
+        <p>The Craft Beer Wizard</p>
+      </div>
+      
+      <div class="form-description">
+        <p>Are your taste buds stuck in a rut, yearning for an escape from the mundane world of ordinary brews? 
+            Do you find yourself lost in a sea of generic sips, craving the excitement of uncharted beer territory?
+            Have you ever wished for a magical guide to lead you through the labyrinth of craft brews, revealing hidden treasures with each pour?
+            Well, fear not, intrepid beer explorer, for the <b>Craft Beer Wizard</b> has heard your call! 
+            Enter the names of your favorite Canadian craft beers into the box below, and let the Wizard conjure up tailor-made recommendations just for you!
+            Can't remember any names? Try typing in generic beer styles that you like (for example, 'stout' or 'pilsner') and the Wizard might still be able to recommend something!
+        </p>
+      </div>
+
+      <div style="margin-bottom: 30px;"></div>
+    
+      <div class="form-floating">
+          <textarea class="form-control" name="beer_list" placeholder="Your favorite Canadian craft beers" id="floatingTextarea2" style="height: 50px"></textarea>
+          <label for="floatingTextarea2">Please list at least 3 beers separated by commas.</label>
+      </div>
+
+      <form>
+          <label for="selectProvinces">Recommend beers from:</label>
+          <select id="selectProvinces" class="form-select" aria-label="Default select example" name="province">
+              <option value="default" selected>anywhere in Canada</option>
+              <option value="1">British Columbia</option>
+              <option value="2">the Prairies (AB, SK, MB)</option>
+              <option value="3">Ontario</option>
+              <option value="4">Quebec</option>
+              <option value="5">the Maritimes (NB, PEI, NS) and NL</option>
+          </select>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+      
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+        var beerList = document.getElementById('floatingTextarea2').value;
+        var beers = beerList.split(',');
+
+        if (beers.length < 3) {
+            alert('Please enter at least 3 beers separated by commas.');
+            return false;
+        }
+        return true; 
+    }
+  </script>
+
+</body>
+
+{% endblock %}
